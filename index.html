@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ace Besmonte — Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#E8ECEA;
+    --panel:#DEE4E1;
+    --ink:#152420;
+    --ink-soft:#48584f;
+    --accent:#D6491F;
+    --line: rgba(21,36,32,0.16);
+    --line-strong: rgba(21,36,32,0.4);
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12181a;
+      --panel:#1a2224;
+      --ink:#e9ece9;
+      --ink-soft:#a4b0aa;
+      --accent:#ff7a45;
+      --line: rgba(233,236,233,0.14);
+      --line-strong: rgba(233,236,233,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12181a;
+    --panel:#1a2224;
+    --ink:#e9ece9;
+    --ink-soft:#a4b0aa;
+    --accent:#ff7a45;
+    --line: rgba(233,236,233,0.14);
+    --line-strong: rgba(233,236,233,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Space Grotesk', Arial, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'IBM Plex Mono', 'Courier New', monospace;}
+  a{color:inherit;}
+  ::selection{background:var(--accent); color:#fff;}
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  header.site{
+    position:sticky;
+    top:0;
+    top:env(safe-area-inset-top,0px);
+    z-index:10;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .site-inner{
+    max-width:760px;
+    margin:0 auto;
+    padding:16px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .site-inner .name{
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.01em;
+  }
+  .site-inner nav{display:flex; gap:20px;}
+  .site-inner nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+  }
+  .site-inner nav a:hover, .site-inner nav a:focus-visible{
+    color:var(--ink);
+    border-color:var(--accent);
+  }
+
+  main{padding-bottom:80px;}
+
+  /* HERO */
+  .hero{
+    padding:64px 0 48px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--accent);
+    margin:0 0 18px;
+  }
+  .hero h1{
+    font-size:clamp(34px, 6.4vw, 54px);
+    line-height:1.06;
+    margin:0 0 22px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    max-width:14ch;
+  }
+  .hero p.lede{
+    max-width:52ch;
+    font-size:17px;
+    color:var(--ink-soft);
+    margin:0 0 32px;
+  }
+  .stat-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  .stat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    padding:14px 22px 14px 0;
+    border-right:1px solid var(--line);
+    margin-right:22px;
+  }
+  .stat:last-child{border-right:none; margin-right:0;}
+  .stat b{
+    display:block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:20px;
+    color:var(--ink);
+    font-weight:600;
+    margin-bottom:2px;
+  }
+
+  section{padding:52px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:28px;
+  }
+  .section-head h2{
+    font-size:22px;
+    margin:0;
+    font-weight:600;
+  }
+  .section-head .idx{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  /* STACK */
+  .stack-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px 24px;
+  }
+  .stack-group h3{
+    font-size:12.5px;
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+    font-weight:400;
+  }
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    padding:6px 10px;
+    border:1px solid var(--line-strong);
+    border-radius:3px;
+    color:var(--ink);
+  }
+
+  /* WORK */
+  .project{
+    padding:26px 0;
+    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:18px;
+  }
+  .project:first-of-type{border-top:none; padding-top:0;}
+  .project .pnum{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    padding-top:3px;
+  }
+  .project h3{
+    font-size:18px;
+    margin:0 0 6px;
+    font-weight:600;
+  }
+  .project h3 a{
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+  }
+  .project h3 a:hover, .project h3 a:focus-visible{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .project p{
+    margin:0 0 10px;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    max-width:56ch;
+  }
+  .project .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .project .meta span{
+    border:1px solid var(--line);
+    padding:3px 7px;
+    border-radius:3px;
+  }
+
+  /* CONTACT */
+  .contact h2{
+    font-size:28px;
+    margin:0 0 16px;
+    max-width:14ch;
+    font-weight:600;
+  }
+  .contact p{
+    color:var(--ink-soft);
+    max-width:48ch;
+    margin:0 0 26px;
+    font-size:15.5px;
+  }
+  .contact-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px 22px;
+  }
+  .contact-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+    padding-bottom:2px;
+  }
+  .contact-links a:hover, .contact-links a:focus-visible{
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+
+  footer{
+    padding:26px 0 40px;
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  @media (max-width: 620px){
+    .stack-grid{grid-template-columns:1fr;}
+    .project{grid-template-columns:32px 1fr;}
+    .site-inner nav{gap:14px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <span class="name">Ace Besmonte</span>
+    <nav>
+      <a href="#stack">Stack</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <p class="tag mono">Web Developer — 6 years in production</p>
+      <h1>I build the systems behind the interface.</h1>
+      <p class="lede">Full-stack developer working across Node.js, ASP.NET and Vue, deployed and kept running on AWS. Comfortable owning a feature from ticket to production.</p>
+      <div class="stat-row">
+        <div class="stat"><b>06</b>years shipping</div>
+        <div class="stat"><b>2</b>backend stacks</div>
+        <div class="stat"><b>AWS</b>hosted &amp; managed</div>
+        <div class="stat"><b>Scrum /<br>Kanban</b>delivery</div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="section-head">
+        <h2>Stack</h2>
+        <span class="idx mono">what I build with</span>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-group">
+          <h3>Backend</h3>
+          <div class="chips">
+            <span class="chip">Node.js</span>
+            <span class="chip">ASP.NET</span>
+            <span class="chip">TypeScript</span>
+            <span class="chip">MSSQL</span>
+            <span class="chip">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h3>Frontend</h3>
+          <div class="chips">
+            <span class="chip">Vue 2</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">HTML5</span>
+            <span class="chip">TypeScript</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h3>Cloud &amp; infra</h3>
+          <div class="chips">
+            <span class="chip">AWS</span>
+            <span class="chip">Elastic Beanstalk</span>
+            <span class="chip">RDS</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h3>Process</h3>
+          <div class="chips">
+            <span class="chip">Scrum</span>
+            <span class="chip">Kanban</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="section-head">
+        <h2>Selected work</h2>
+        <span class="idx mono">3 sites</span>
+      </div>
+
+      <div class="project">
+        <span class="pnum mono">01</span>
+        <div>
+          <h3><a href="https://www.norbit.com.au/" target="_blank" rel="noopener">Norbit Australia</a></h3>
+          <p>Corporate site for the Australian arm of a global maritime and connectivity technology company — built to hold up across international audiences and product lines.</p>
+          <div class="meta"><span>norbit.com.au</span><span>Corporate site</span></div>
+        </div>
+      </div>
+
+      <div class="project">
+        <span class="pnum mono">02</span>
+        <div>
+          <h3><a href="https://www.evfchina.com/EN/About_us" target="_blank" rel="noopener">EVF China</a></h3>
+          <p>Bilingual company site for an electric vehicle manufacturer's China operations, serving both local and English-speaking audiences.</p>
+          <div class="meta"><span>evfchina.com</span><span>Bilingual — EN/CN</span></div>
+        </div>
+      </div>
+
+      <div class="project">
+        <span class="pnum mono">03</span>
+        <div>
+          <h3><a href="https://checkmarx.com/product/application-security-platform/" target="_blank" rel="noopener">Checkmarx</a></h3>
+          <p>Product page for an enterprise application-security platform, presenting a technical product to a security-conscious, developer-heavy audience.</p>
+          <div class="meta"><span>checkmarx.com</span><span>Product page</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Let's build something.</h2>
+      <p>Open to full-stack and backend roles, contract or full-time. Reach out and I'll get back to you.</p>
+      <div class="contact-links">
+        <a href="mailto:acebesmonte@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ace-besmonte-a584a7155/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/aceoflaguna" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Ace Besmonte</span>
+    <span>Built 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
